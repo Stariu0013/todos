@@ -1,0 +1,33 @@
+.TodoForm {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    min-height: 100px;
+
+    margin: 20px 0 0;
+
+    & .CharsBlock {
+        max-width: 200px;
+    }
+
+    & .InputsBlock {
+        display: flex;
+        gap: 20px;
+    }
+
+    & .Input {
+        height: 100%;
+        border-radius: 10px;
+        border: 1px solid #6B9080;
+        outline: none;
+        padding: 0 10px;
+        color: #6B9080;
+    }
+
+    @media (max-width: 460px) {
+        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+}

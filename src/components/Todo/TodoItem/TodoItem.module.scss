@@ -1,0 +1,30 @@
+.TodoItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 15px;
+
+    font-size: 18px;
+    color: #EAF4F4;
+    border-bottom: 1px solid #A4C3B2;
+
+    & .TodoTitle {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        cursor: pointer;
+
+        &.TodoTitleCompleted {
+            text-decoration: line-through;
+        }
+
+        @media(max-width: 768px) {
+            white-space: normal;
+        }
+    }
+
+    @media (max-width: 460px) {
+        gap: 20px;
+    }
+}
