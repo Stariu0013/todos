@@ -1,8 +1,10 @@
-.Navbar {
-    color: #EAF4F4;
+@import '../../assets/vars';
+
+.navbar {
+    color: $font-color;
     text-align: center;
 
-    & .Subtitle {
-        font-size: 20px;
+    .subtitle {
+        font-size: $font-20;
     }
 }

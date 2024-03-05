@@ -1,3 +1,3 @@
-import { TODO_FILTER_OPTIONS } from "../types/todo.ts";
+import { TodoFilterOptionsEnum } from "../types/todo.ts"
 
-export const TodoFilterOptions = [TODO_FILTER_OPTIONS.ALL, TODO_FILTER_OPTIONS.COMPLETED, TODO_FILTER_OPTIONS.UNCOMPLETED];
+export const TodoFilterOptions = [TodoFilterOptionsEnum.ALL, TodoFilterOptionsEnum.COMPLETED, TodoFilterOptionsEnum.UNCOMPLETED]

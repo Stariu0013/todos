@@ -1,12 +1,12 @@
 export interface ITodo {
-    userId?: number,
-    id: number,
-    title: string,
-    completed: boolean
+  userId?: number
+  id: number
+  title: string
+  completed: boolean
 }
 
-export enum TODO_FILTER_OPTIONS {
-    ALL = "all",
-    COMPLETED = "completed",
-    UNCOMPLETED = "uncompleted"
+export enum TodoFilterOptionsEnum {
+  ALL = "all",
+  COMPLETED = "completed",
+  UNCOMPLETED = "uncompleted"
 }

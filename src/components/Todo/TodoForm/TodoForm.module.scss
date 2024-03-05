@@ -1,30 +1,29 @@
-.TodoForm {
+.todo-form {
     display: flex;
     align-items: flex-start;
     gap: 30px;
     min-height: 100px;
-
     margin: 20px 0 0;
 
-    & .CharsBlock {
+    .chars-block {
         max-width: 200px;
     }
 
-    & .InputsBlock {
+    .inputs-block {
         display: flex;
         gap: 20px;
     }
 
-    & .Input {
+    .input {
         height: 100%;
         border-radius: 10px;
-        border: 1px solid #6B9080;
+        border: 1px solid rgb(107, 144, 128);
         outline: none;
         padding: 0 10px;
-        color: #6B9080;
+        color: rgb(107, 144, 128);
     }
 
-    @media (max-width: 460px) {
+    @media (width <= 460px) {
         gap: 10px;
         flex-direction: column;
         align-items: center;

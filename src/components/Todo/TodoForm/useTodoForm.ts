@@ -1,44 +1,53 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react"
 
-export const useTodoForm = (addNewTodo: (title: string) => void) => {
-    const [todoTitle, setTodoTitle] = useState("");
-    const [charsLength, setCharsLength] = useState("");
-    const [error, setError] = useState("");
+interface UseTodoForm {
+  charsLength: string
+  error: string
+  todoTitle: string
+  onSubmit: (event: React.FormEvent) => void
+  onCharsLengthChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onTitleChange: (event: ChangeEvent<HTMLInputElement>) => void
+}
 
-    const onSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
+export const useTodoForm = (addNewTodo: (title: string) => void): UseTodoForm => {
+  const [todoTitle, setTodoTitle] = useState("")
+  const [charsLength, setCharsLength] = useState("")
+  const [error, setError] = useState("")
 
-        if (!todoTitle.trim()) return;
+  const onSubmit = (event: React.FormEvent): void => {
+    event.preventDefault()
 
-        if (todoTitle.length <= +charsLength) {
-            setError("");
-            addNewTodo(todoTitle);
-            setTodoTitle("");
-        } else {
-            if (Number(charsLength) < 0) {
-                setError(`Should be positive numbers`);
+    if (!todoTitle.trim()) return
 
-                return;
-            }
+    if (todoTitle.length <= +charsLength) {
+      setError("")
+      addNewTodo(todoTitle)
+      setTodoTitle("")
+    } else {
+      if (Number(charsLength) < 0) {
+        setError(`Should be positive numbers`)
 
-            setError(`Todo title should be less or equal than ${charsLength} symbols`);
-        }
-    };
+        return
+      }
 
-    const onCharsLengthChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setCharsLength(event.target.value);
-    };
+      setError(`Todo title should be less or equal than ${charsLength} symbols`)
+    }
+  }
 
-    const onTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setTodoTitle(event.target.value);
-    };
+  const onCharsLengthChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setCharsLength(event.target.value)
+  }
 
-    return {
-        charsLength,
-        error,
-        todoTitle,
-        onSubmit,
-        onCharsLengthChange,
-        onTitleChange,
-    };
-};
+  const onTitleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setTodoTitle(event.target.value)
+  }
+
+  return {
+    charsLength,
+    error,
+    todoTitle,
+    onSubmit,
+    onCharsLengthChange,
+    onTitleChange,
+  }
+}

@@ -1,75 +1,87 @@
-import { useAppDispatch, useAppSelector } from "../../store/store.ts";
-import { useEffect, useState } from "react";
-import { ITodo, TODO_FILTER_OPTIONS } from "../../types/todo.ts";
+import { useAppDispatch, useAppSelector } from "../../store/store.ts"
+import { useEffect, useState } from "react"
+import { ITodo, TodoFilterOptionsEnum } from "../../types/todo.ts"
 import {
-    addNewTodoAction,
-    fetchAllTodos,
-    removeTodoAction, setTodosAction,
-    toggleTodoAction,
-} from "../../store/reducers/TodoReducer.ts";
-import { generateNewId } from "../../utils/generateNewId.ts";
+  addNewTodoAction,
+  fetchAllTodos,
+  removeTodoAction, setTodosAction,
+  toggleTodoAction,
+} from "../../store/reducers/TodoReducer.ts"
+import { generateNewId } from "../../utils/generateNewId.ts"
 
-export const useApp = () => {
-    const dispatch = useAppDispatch();
-    const { todos, error, isLoading } = useAppSelector(state => state.todos);
+interface UseApp {
+  error: string
+  isLoading: boolean
+  filterType: TodoFilterOptionsEnum
+  completedTodosCount: number
+  filteredTodos: ITodo[]
+  setFilterType: (type: TodoFilterOptionsEnum) => void
+  onTodoCompleteChange: (id: number) => void
+  addNewTodo: (title: string) => void
+  onTodoDelete: (id: number) => void
+}
 
-    const [filterType, setFilterType] = useState<TODO_FILTER_OPTIONS>(TODO_FILTER_OPTIONS.ALL);
+export const useApp = (): UseApp => {
+  const dispatch = useAppDispatch()
+  const { todos, error, isLoading } = useAppSelector(state => state.todos)
 
-    const onTodoCompleteChange = (id: number) => {
-        dispatch(toggleTodoAction(id));
-    };
+  const [filterType, setFilterType] = useState<TodoFilterOptionsEnum>(TodoFilterOptionsEnum.ALL)
 
-    const onTodoDelete = (id: number) => {
-        dispatch(removeTodoAction(id));
-    };
+  const onTodoCompleteChange = (id: number): void => {
+    dispatch(toggleTodoAction(id))
+  }
 
-    const addNewTodo = (todoTitle: string) => {
-        const newId = generateNewId(todos);
-        const newTodo: ITodo = {
-            id: newId,
-            title: todoTitle,
-            completed: false,
-        };
+  const onTodoDelete = (id: number): void => {
+    dispatch(removeTodoAction(id))
+  }
 
-        dispatch(addNewTodoAction(newTodo));
-    };
+  const addNewTodo = (todoTitle: string): void => {
+    const newId = generateNewId(todos)
+    const newTodo: ITodo = {
+      id: newId,
+      title: todoTitle,
+      completed: false,
+    }
 
-    useEffect(() => {
-        const todos = JSON.parse(localStorage.getItem('todos') || "[]") ;
+    dispatch(addNewTodoAction(newTodo))
+  }
 
-        if (todos.length) {
-            dispatch(setTodosAction(todos));
-            return;
-        }
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem('todos') || "[]") 
 
-        dispatch(fetchAllTodos());
-    }, []);
+    if (todos.length) {
+      dispatch(setTodosAction(todos))
+      return
+    }
 
-    useEffect(() => {
-        localStorage.setItem("todos", JSON.stringify(todos));
-    }, [todos]);
+    dispatch(fetchAllTodos())
+  }, [dispatch])
 
-    const completedTodosCount = todos.filter(todo => todo.completed).length;
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
 
-    const filteredTodos = todos?.filter(todo => {
-        if (filterType === TODO_FILTER_OPTIONS.UNCOMPLETED) {
-            return !todo.completed;
-        } else if (filterType === TODO_FILTER_OPTIONS.COMPLETED) {
-            return todo.completed;
-        }
+  const completedTodosCount = todos.filter(todo => todo.completed).length
 
-        return true;
-    });
+  const filteredTodos = todos?.filter(todo => {
+    if (filterType === TodoFilterOptionsEnum.UNCOMPLETED) {
+      return !todo.completed
+    } else if (filterType === TodoFilterOptionsEnum.COMPLETED) {
+      return todo.completed
+    }
 
-    return {
-        error,
-        isLoading,
-        filterType,
-        completedTodosCount,
-        filteredTodos,
-        setFilterType,
-        onTodoCompleteChange,
-        addNewTodo,
-        onTodoDelete,
-    };
-};
+    return true
+  })
+
+  return {
+    error,
+    isLoading,
+    filterType,
+    completedTodosCount,
+    filteredTodos,
+    setFilterType,
+    onTodoCompleteChange,
+    addNewTodo,
+    onTodoDelete,
+  }
+}

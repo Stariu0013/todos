@@ -1,25 +1,27 @@
+@import './assets/vars';
+
 * {
     padding: 0;
     margin: 0;
 }
 
 body {
-    background: #A4C3B2;
+    background: $primary;
 }
 
-.App {
+.app {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     height: 100%;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         padding: 10px 20px;
     }
 }
 
-.Error {
-    color: red;
+.error {
+    color: $red;
     text-align: center;
 }
