@@ -1,6 +1,8 @@
-import ReactDOM from "react-dom/client"
-import App from "./components/App/App.tsx"
-import { Provider } from "react-redux"
-import { store } from "./store/store.ts"
+import ReactDOM from 'react-dom/client'
+import App from './components/App/app.tsx'
+import { Provider } from 'react-redux'
+import { store } from './store/store.ts'
 
-ReactDOM.createRoot(document.getElementById("root")!).render(<Provider store={store}><App /></Provider>)
+ReactDOM
+  .createRoot(document.querySelector('#root')!)
+  .render(<Provider store={store}><App /></Provider>)

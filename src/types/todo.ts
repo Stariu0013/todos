@@ -6,7 +6,7 @@ export interface ITodo {
 }
 
 export enum TodoFilterOptionsEnum {
-  ALL = "all",
-  COMPLETED = "completed",
-  UNCOMPLETED = "uncompleted"
+  ALL = 'all',
+  COMPLETED = 'completed',
+  UNCOMPLETED = 'uncompleted'
 }

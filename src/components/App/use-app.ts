@@ -1,13 +1,13 @@
-import { useAppDispatch, useAppSelector } from "../../store/store.ts"
-import { useEffect, useState } from "react"
-import { ITodo, TodoFilterOptionsEnum } from "../../types/todo.ts"
+import { useAppDispatch, useAppSelector } from '../../store/store.ts'
+import { useEffect, useState } from 'react'
+import { ITodo, TodoFilterOptionsEnum } from '../../types/todo.ts'
 import {
   addNewTodoAction,
   fetchAllTodos,
   removeTodoAction, setTodosAction,
   toggleTodoAction,
-} from "../../store/reducers/TodoReducer.ts"
-import { generateNewId } from "../../utils/generateNewId.ts"
+} from '../../store/reducers/todo-reducer.ts'
+import { generateNewId } from '../../utils/generate-new-id.ts'
 
 interface UseApp {
   error: string
@@ -23,9 +23,12 @@ interface UseApp {
 
 export const useApp = (): UseApp => {
   const dispatch = useAppDispatch()
-  const { todos, error, isLoading } = useAppSelector(state => state.todos)
+  const { todos, error, isLoading } = useAppSelector((state) => state.todos)
 
-  const [filterType, setFilterType] = useState<TodoFilterOptionsEnum>(TodoFilterOptionsEnum.ALL)
+  const [
+    filterType,
+    setFilterType,
+  ] = useState<TodoFilterOptionsEnum>(TodoFilterOptionsEnum.ALL)
 
   const onTodoCompleteChange = (id: number): void => {
     dispatch(toggleTodoAction(id))
@@ -38,19 +41,19 @@ export const useApp = (): UseApp => {
   const addNewTodo = (todoTitle: string): void => {
     const newId = generateNewId(todos)
     const newTodo: ITodo = {
-      id: newId,
-      title: todoTitle,
-      completed: false,
+      'id': newId,
+      'title': todoTitle,
+      'completed': false,
     }
 
     dispatch(addNewTodoAction(newTodo))
   }
 
   useEffect(() => {
-    const todos = JSON.parse(localStorage.getItem('todos') || "[]") 
+    const storageTodos = JSON.parse(localStorage.getItem('todos') || '[]')
 
-    if (todos.length) {
-      dispatch(setTodosAction(todos))
+    if (todos.length > 0) {
+      dispatch(setTodosAction(storageTodos))
       return
     }
 
@@ -58,15 +61,17 @@ export const useApp = (): UseApp => {
   }, [dispatch])
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos))
+    localStorage.setItem('todos', JSON.stringify(todos))
   }, [todos])
 
-  const completedTodosCount = todos.filter(todo => todo.completed).length
+  const completedTodosCount = todos
+    .filter((todo: ITodo) => todo.completed).length
 
-  const filteredTodos = todos?.filter(todo => {
+  const filteredTodos = todos?.filter((todo: ITodo) => {
     if (filterType === TodoFilterOptionsEnum.UNCOMPLETED) {
       return !todo.completed
-    } else if (filterType === TodoFilterOptionsEnum.COMPLETED) {
+    }
+    if (filterType === TodoFilterOptionsEnum.COMPLETED) {
       return todo.completed
     }
 

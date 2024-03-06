@@ -1,8 +1,14 @@
-import React from "react"
+import React from 'react'
 
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material"
-import { TodoFilterOptionsEnum } from "../../../types/todo.ts"
-import { TodoFilterOptions } from "../../../consts/todoFilterOptions.ts"
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material'
+import { TodoFilterOptionsEnum } from '../../../types/todo.ts'
+import { TodoFilterOptions } from '../../../consts/todo-filter-options.ts'
 
 interface TodoFilterProps {
   filterType: TodoFilterOptionsEnum
@@ -10,7 +16,9 @@ interface TodoFilterProps {
   setFilterType: (type: TodoFilterOptionsEnum) => void
 }
 
-const TodoFilter: React.FC<TodoFilterProps> = ({ setFilterType, filterType, className }) => {
+const TodoFilter: React.FC<TodoFilterProps> = (
+  { setFilterType, filterType, className },
+) => {
   const onSelectChange = (event: SelectChangeEvent): void => {
     setFilterType(event.target.value as TodoFilterOptionsEnum)
   }
@@ -27,7 +35,7 @@ const TodoFilter: React.FC<TodoFilterProps> = ({ setFilterType, filterType, clas
         onChange={onSelectChange}
       >
         {
-          TodoFilterOptions.map(option => {
+          TodoFilterOptions.map((option) => {
             return <MenuItem key={option} value={option}>{option}</MenuItem>
           })
         }

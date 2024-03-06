@@ -15,10 +15,6 @@
         text-overflow: ellipsis;
         cursor: pointer;
 
-        .todo-title-completed {
-            text-decoration: line-through;
-        }
-
         @media(width <= 768px) {
             white-space: normal;
         }
@@ -27,4 +23,8 @@
     @media (width <= 460px) {
         gap: 20px;
     }
+}
+
+.todo-title-completed {
+    text-decoration: line-through;
 }

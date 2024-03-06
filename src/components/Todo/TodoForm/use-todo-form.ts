@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react"
+import React, { ChangeEvent, useState } from 'react'
 
 interface UseTodoForm {
   charsLength: string
@@ -9,23 +9,26 @@ interface UseTodoForm {
   onTitleChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const useTodoForm = (addNewTodo: (title: string) => void): UseTodoForm => {
-  const [todoTitle, setTodoTitle] = useState("")
-  const [charsLength, setCharsLength] = useState("")
-  const [error, setError] = useState("")
+export const useTodoForm = (
+  addNewTodo: (title: string
+  ) => void,
+): UseTodoForm => {
+  const [todoTitle, setTodoTitle] = useState('')
+  const [charsLength, setCharsLength] = useState('')
+  const [error, setError] = useState('')
 
   const onSubmit = (event: React.FormEvent): void => {
     event.preventDefault()
 
     if (!todoTitle.trim()) return
 
-    if (todoTitle.length <= +charsLength) {
-      setError("")
+    if (todoTitle.length <= Number(charsLength)) {
+      setError('')
       addNewTodo(todoTitle)
-      setTodoTitle("")
+      setTodoTitle('')
     } else {
       if (Number(charsLength) < 0) {
-        setError(`Should be positive numbers`)
+        setError('Should be positive numbers')
 
         return
       }
